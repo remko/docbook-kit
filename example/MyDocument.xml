@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.4//EN"
+"http://www.oasis-open.org/docbook/xml/4.4/docbookx.dtd">
+<article>
+  <articleinfo>
+    <title>Remko’s DocBook Kit Example</title>
+    <author>
+      <firstname>Remko</firstname>
+      <surname>Tronçon</surname>
+    </author>
+  </articleinfo>
+
+  <para>This is a simple paragraph</para>
+  
+  <include xmlns="http://www.w3.org/2001/XInclude" href="MyGeneratedFile.xml"/>
+</article>

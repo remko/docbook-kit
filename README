@@ -1,0 +1,11 @@
+Remko's DocBook kit
+-------------------
+To use this kit, put it in the directory of your DocBook project, and have
+a look at the example/ dir to see how to use it in your project.
+
+The Makefile include provides the following commands:
+- 'make': Create HTML and PDF versions (if available) of the document
+- 'make html': Create a HTML version of the document
+- 'make pdf': Create a PDF version of the document
+- 'make txt': Create a text version of the document
+- 'make clean': Clean up all generated files
