@@ -8,6 +8,7 @@
   <xsl:import href="../../../docbook/xsl/fo/docbook.xsl"/>
   <xsl:include href="../common/params.xsl" />
   <xsl:include href="../common/inline.xsl" />
+  <xsl:include href="inline.xsl" />
 
   <!-- Images -->
   <xsl:param name="draft.watermark.image" select="''"/>
@@ -21,7 +22,7 @@
 
   <!-- Page setup -->
   <xsl:param name="paper.type" select="'A4'"/>
-  <xsl:param name="double.sided"/>
+  <!--<xsl:param name="double.sided"/>-->
 
   <!--<xsl:param name="header.column.widths">0 1 0</xsl:param>-->
   <!--<xsl:attribute-set name="header.content.properties">
@@ -43,12 +44,6 @@
   <!-- Fonts & colors -->
   <xsl:param name="variablelist.as.blocks" select="0"/>
 
-  <!--<xsl:param name="shade.verbatim" select="1"/>
-  <xsl:attribute-set name="shade.verbatim.style">
-    <xsl:attribute name="border">0</xsl:attribute>
-    <xsl:attribute name="background-color">#F0F0F0</xsl:attribute>
-  </xsl:attribute-set>
-
   <xsl:param name="body.font.master" select="11"/>
 
   <xsl:attribute-set name="monospace.verbatim.properties">
@@ -59,7 +54,13 @@
   <xsl:attribute-set name="nongraphical.admonition.properties">
     <xsl:attribute name="background-color">#F0F0F0</xsl:attribute>
     <xsl:attribute name="padding">5pt</xsl:attribute>
-  </xsl:attribute-set>-->
+  </xsl:attribute-set>
+
+  <!--<xsl:param name="shade.verbatim" select="1"/>
+  <xsl:attribute-set name="shade.verbatim.style">
+    <xsl:attribute name="border">0</xsl:attribute>
+    <xsl:attribute name="background-color">#F0F0F0</xsl:attribute>
+  </xsl:attribute-set> -->
 
   <xsl:attribute-set name="section.title.chapter.properties">
     <xsl:attribute name="font-size">
@@ -77,7 +78,7 @@
 
   <xsl:attribute-set name="section.title.level2.properties">
     <xsl:attribute name="font-size">
-      <xsl:value-of select="$body.font.master * 1.1"/>
+      <xsl:value-of select="$body.font.master * 1.3"/>
       <xsl:text>pt</xsl:text>
     </xsl:attribute>
   </xsl:attribute-set>
