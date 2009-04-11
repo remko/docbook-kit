@@ -1,9 +1,15 @@
 Remko's DocBook kit
--------------------
+Author: Remko Tronçon (http://el-tramo.be)
+License: GPLv2
+------------------------------------------
+
 To use this kit, put it in the directory of your DocBook project, and have
 a look at the example/ dir to see how to use it in your project.
 
-The Makefile include provides the following commands:
+The Makefile include automatically downloads DocBook if necessary,
+and automatically builds your project (and its depended-on files).
+
+The makefile provides the following commands:
 - 'make': Create HTML and PDF versions (if available) of the document
 - 'make html': Create a HTML version of the document
 - 'make pdf': Create a PDF version of the document
