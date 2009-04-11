@@ -1,3 +1,12 @@
+#
+# Makefile include for a DocBook project.
+#
+# Make sure the variable DOCUMENT is set to the toplevel DocBook XML file
+# before including the Makefile.
+#
+# Remko Tronçon
+#
+
 ################################################################################
 # Setup
 ################################################################################
