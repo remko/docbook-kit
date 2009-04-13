@@ -44,16 +44,6 @@ XSLTPROC_FLAGS =
 # Fop files
 ################################################################################
 
-FOP_FONT_METRIC_FILES = \
-	$(patsubst %.ttf, %.xml, $(wildcard $(FONTS_DIR)/*.ttf)) \
-	$(patsubst %.pfm, %.xml, $(wildcard $(FONTS_DIR)/*.pfm))
-
-$(FONTS_DIR)/%.xml: $(FONTS_DIR)/%.ttf
-	$(DOCBOOKKIT_DIR)/tools/generate-fop-metrics.py $< $(FOP_DIR)
-
-$(FONTS_DIR)/%.xml: $(FONTS_DIR)/%.pfm
-	$(DOCBOOKKIT_DIR)/tools/generate-fop-metrics.py $< $(FOP_DIR)
-
 FOP_CONFIG_FILE = fop.cfg
 $(FOP_CONFIG_FILE): 
 	echo "<fop version=\"1.0\"><renderers><renderer mime=\"application/pdf\"><fonts><directory recursive=\"true\">$(FONTS_DIR)</directory></fonts></renderer></renderers></fop>" | xmllint --format - > $@
@@ -89,7 +79,7 @@ $(TARGET_BASE).flat.xml: $(DOCUMENT) $(DOCUMENT_DEPENDENCIES)
 $(TARGET_BASE).html: $(DOCUMENT) $(DOCUMENT_DEPENDENCIES) $(DOCBOOK_XSL_HTML)
 	xsltproc $(XSLTPROC_FLAGS) $(LIBXML_FLAGS) $(DOCBOOK_XSL_HTML_PARAMS) --output $@ $(DOCBOOK_XSL_HTML) $(DOCUMENT)
 
-$(TARGET_BASE).pdf: $(TARGET_BASE).fo $(FOP_FONT_METRIC_FILES) $(FOP_CONFIG_FILE)
+$(TARGET_BASE).pdf: $(TARGET_BASE).fo $(FOP_CONFIG_FILE)
 	$(FOP) -c $(FOP_CONFIG_FILE) $< $@
 	@if [ "$(PDFTK)" ]; then \
 		mv $(TARGET_BASE).pdf $(TARGET_BASE)_bare.pdf; \
