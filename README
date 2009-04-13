@@ -15,3 +15,7 @@ The makefile provides the following commands:
 - 'make pdf': Create a PDF version of the document
 - 'make txt': Create a text version of the document
 - 'make clean': Clean up all generated files
+
+If you want to use custom fonts in your style sheets, drop the .ttf or
+.pfm file in the fonts/ directory; the Makefile include will automatically
+generate the required files for FOP to use the font.
