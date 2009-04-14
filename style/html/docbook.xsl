@@ -8,6 +8,7 @@
   <xsl:output method="html" encoding="UTF-8" indent="no"/>
 
   <xsl:param name="use.extensions" select="0"/>
+  <xsl:param name="section.autolabel" select="'1'"/>
 
   <xsl:param name="generate.toc">
     appendix  nop

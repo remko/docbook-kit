@@ -10,6 +10,8 @@
   <xsl:include href="../common/inline.xsl" />
   <xsl:include href="inline.xsl" />
 
+  <xsl:param name="section.autolabel" select="'0'"/>
+
   <!-- Images -->
   <xsl:param name="draft.watermark.image" select="''"/>
 
@@ -37,14 +39,53 @@
   </xsl:attribute-set>
   <xsl:param name="footer.rule" select="0"/>-->
 
-  <!--<xsl:param name="body.start.indent" select="'10pt'"/>
-  <xsl:param name="page.margin.inner" select="'3cm'"/>
-  <xsl:param name="page.margin.outer" select="'3cm'"/>-->
+  <xsl:param name="page.margin.top" select="'3.9cm'"/>
+  <xsl:param name="page.margin.bottom" select="'3.9cm'"/>
+  <xsl:param name="page.margin.inner" select="'4cm'"/>
+  <xsl:param name="page.margin.outer" select="'4cm'"/>
+  <xsl:param name="body.start.indent" select="'0'"/>
+  <xsl:param name="body.margin.bottom" select="'1.2cm'"/>
+  <xsl:attribute-set name="normal.para.spacing">
+    <xsl:attribute name="space-before.optimum">0.4em</xsl:attribute>  
+    <xsl:attribute name="space-before.minimum">0.3em</xsl:attribute>
+    <xsl:attribute name="space-before.maximum">0.5em</xsl:attribute>
+  </xsl:attribute-set>
+  <xsl:attribute-set name="list.block.spacing">
+    <xsl:attribute name="space-before.optimum">0.4em</xsl:attribute>
+    <xsl:attribute name="space-before.minimum">0.3em</xsl:attribute>
+    <xsl:attribute name="space-before.maximum">0.5em</xsl:attribute>
+    <xsl:attribute name="space-after.optimum">0.4em</xsl:attribute>
+    <xsl:attribute name="space-after.minimum">0.3em</xsl:attribute>
+    <xsl:attribute name="space-after.maximum">0.5em</xsl:attribute>
+  </xsl:attribute-set>
+  <xsl:attribute-set name="list.item.spacing">
+    <xsl:attribute name="space-before.optimum">0.4em</xsl:attribute>
+    <xsl:attribute name="space-before.minimum">0.3em</xsl:attribute>
+    <xsl:attribute name="space-before.maximum">0.5em</xsl:attribute>
+  </xsl:attribute-set>
+  <xsl:attribute-set name="verbatim.properties">
+    <xsl:attribute name="space-before.minimum">0.3em</xsl:attribute>
+    <xsl:attribute name="space-before.optimum">0.4em</xsl:attribute>
+    <xsl:attribute name="space-before.maximum">0.5em</xsl:attribute>
+    <xsl:attribute name="space-after.minimum">0.3em</xsl:attribute>
+    <xsl:attribute name="space-after.optimum">0.4em</xsl:attribute>
+    <xsl:attribute name="space-after.maximum">0.5em</xsl:attribute>
+    <xsl:attribute name="hyphenate">false</xsl:attribute>
+    <xsl:attribute name="wrap-option">no-wrap</xsl:attribute>
+    <xsl:attribute name="white-space-collapse">false</xsl:attribute>
+    <xsl:attribute name="white-space-treatment">preserve</xsl:attribute>
+    <xsl:attribute name="linefeed-treatment">preserve</xsl:attribute>
+    <xsl:attribute name="text-align">start</xsl:attribute>
+    <xsl:attribute name="start-indent">10pt</xsl:attribute>
+  </xsl:attribute-set>
 
-  <!-- Fonts & colors -->
   <xsl:param name="variablelist.as.blocks" select="0"/>
 
-  <xsl:param name="body.font.master" select="11"/>
+  <!-- Fonts & colors -->
+  <xsl:param name="body.font.master" select="10"/>
+  <xsl:param name="body.font.family" select="'Birka,Times'"/>
+  <xsl:param name="title.font.family" select="'Myriad Pro,Helvetica'"/>
+  <xsl:param name="monospace.font.family" select="'Inconsolata,Courier'"/>
 
   <xsl:attribute-set name="monospace.verbatim.properties">
     <xsl:attribute name="font-size">.8em</xsl:attribute>
@@ -64,24 +105,31 @@
 
   <xsl:attribute-set name="section.title.chapter.properties">
     <xsl:attribute name="font-size">
-      <xsl:value-of select="$body.font.master * 1.5"/>
+      <xsl:value-of select="$body.font.master * 1.8"/>
       <xsl:text>pt</xsl:text>
     </xsl:attribute>
   </xsl:attribute-set>
 
   <xsl:attribute-set name="section.title.level1.properties">
     <xsl:attribute name="font-size">
+      <xsl:value-of select="$body.font.master * 1.7"/>
+      <xsl:text>pt</xsl:text>
+    </xsl:attribute>
+    <!--<xsl:attribute name="border-bottom">1pt solid #505050</xsl:attribute>-->
+  </xsl:attribute-set>
+
+  <xsl:attribute-set name="section.title.level2.properties">
+    <xsl:attribute name="font-size">
       <xsl:value-of select="$body.font.master * 1.4"/>
       <xsl:text>pt</xsl:text>
     </xsl:attribute>
   </xsl:attribute-set>
 
-  <xsl:attribute-set name="section.title.level2.properties">
-    <xsl:attribute name="font-size">
-      <xsl:value-of select="$body.font.master * 1.3"/>
-      <xsl:text>pt</xsl:text>
-    </xsl:attribute>
+  <!-- FIXME: Doesn't work 
+  <xsl:attribute-set name="bibliography.title.properties">
+    <xsl:attribute name="break-before">page</xsl:attribute>
   </xsl:attribute-set>
+  -->
 
   <xsl:attribute-set name="toc.line.properties">
     <xsl:attribute name="font-size">10pt</xsl:attribute>
