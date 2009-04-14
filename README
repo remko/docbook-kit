@@ -1,8 +1,21 @@
+------------------------------------------
 Remko's DocBook kit
 Author: Remko Tronçon (http://el-tramo.be)
 License: GPLv2
 ------------------------------------------
 
+
+Requirements
+------------
+- xmllint (http://xmlsoft.org/xmllint.html). Part of LibXML2.
+- xsltproc (http://xmlsoft.org/XSLT/xsltproc2.html). Part of LibXML2.
+- Apache FOP (http://xmlgraphics.apache.org/fop/). For PDF output.
+- pdftk (http://www.accesspdf.com/pdftk/). For PDF attachments. Optional.
+- wget (http://www.gnu.org/software/wget/). To download required DocBook files. 
+
+
+Usage
+-----
 To use this kit, put it in the directory of your DocBook project, and have
 a look at the example/ dir to see how to use it in your project.
 
@@ -10,7 +23,7 @@ The Makefile include automatically downloads DocBook if necessary,
 and automatically builds your project (and its depended-on files).
 
 The makefile provides the following commands:
-- 'make': Create HTML and PDF versions (if available) of the document
+- 'make': Create HTML and PDF versions (if FOP is available) of the document
 - 'make html': Create a HTML version of the document
 - 'make pdf': Create a PDF version of the document
 - 'make txt': Create a text version of the document
