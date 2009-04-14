@@ -9,6 +9,7 @@
   <xsl:include href="../common/params.xsl" />
   <xsl:include href="../common/inline.xsl" />
   <xsl:include href="inline.xsl" />
+  <xsl:include href="titlepage.xsl"/>
 
   <xsl:param name="section.autolabel" select="'0'"/>
 
