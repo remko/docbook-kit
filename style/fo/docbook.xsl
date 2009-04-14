@@ -84,7 +84,7 @@
 
   <!-- Fonts & colors -->
   <xsl:param name="body.font.master" select="10"/>
-  <xsl:param name="body.font.family" select="'Birka,Times'"/>
+  <xsl:param name="body.font.family" select="'Birka,Gentium Basic,Times'"/>
   <xsl:param name="title.font.family" select="'Myriad Pro,Helvetica'"/>
   <xsl:param name="monospace.font.family" select="'Inconsolata,Courier'"/>
 
