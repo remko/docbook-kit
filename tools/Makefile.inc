@@ -73,14 +73,16 @@ $(TARGET_BASE).html: $(DOCUMENT) $(DOCUMENT_DEPENDENCIES) $(DOCBOOK_XSL_HTML)
 
 $(TARGET_BASE).pdf: $(TARGET_BASE).fo $(FOP_CONFIG_FILE)
 	$(FOP) -c $(FOP_CONFIG_FILE) $< $@
-	@if [ "$(PDFTK)" ]; then \
-		mv $(TARGET_BASE).pdf $(TARGET_BASE)_bare.pdf; \
-		($(DOCBOOKKIT_DIR)/tools/docbook-pdfmetainfo.py $(DOCUMENT); $(PDFTK) $(TARGET_BASE)_bare.pdf dump_data) | $(PDFTK) $(TARGET_BASE)_bare.pdf update_info - output $(TARGET_BASE)_withinfo.pdf; \
-		rm $(TARGET_BASE)_bare.pdf; \
-		$(PDFTK) $(TARGET_BASE)_withinfo.pdf attach_files $(DOCUMENT_ATTACHMENTS) output $(TARGET_BASE).pdf compress; \
-		rm $(TARGET_BASE)_withinfo.pdf; \
-	else \
-		echo "WARNING: PDFTK not found, not adding sources as attachments"; \
+	@if [ "$(DOCUMENT_ATTACHMENTS)" ]; then \
+		if [ -x "$(PDFTK)" -a "$DOCUMENT_ATTACHMENTS" ]; then \
+			mv $(TARGET_BASE).pdf $(TARGET_BASE)_bare.pdf; \
+			($(DOCBOOKKIT_DIR)/tools/docbook-pdfmetainfo.py $(DOCUMENT); $(PDFTK) $(TARGET_BASE)_bare.pdf dump_data) | $(PDFTK) $(TARGET_BASE)_bare.pdf update_info - output $(TARGET_BASE)_withinfo.pdf; \
+			rm $(TARGET_BASE)_bare.pdf; \
+			$(PDFTK) $(TARGET_BASE)_withinfo.pdf attach_files $(DOCUMENT_ATTACHMENTS) output $(TARGET_BASE).pdf compress; \
+			rm $(TARGET_BASE)_withinfo.pdf; \
+		else \
+			echo "WARNING: PDFTK not found, not adding sources as attachments"; \
+		fi \
 	fi
 
 $(TARGET_BASE).fo: $(DOCUMENT) $(DOCUMENT_DEPENDENCIES) $(DOCBOOK_XSL_FO)
