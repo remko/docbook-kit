@@ -38,15 +38,7 @@ FOP_DIR = $(dir $(FOP))
 LIBXML_FLAGS = --nonet --xinclude
 XSLTPROC_FLAGS = 
 
-.DEFAULT_GOAL = all
-
-################################################################################
-# Fop files
-################################################################################
-
 FOP_CONFIG_FILE = fop.cfg
-$(FOP_CONFIG_FILE): 
-	echo "<fop version=\"1.0\"><renderers><renderer mime=\"application/pdf\"><fonts><directory recursive=\"true\">$(FONTS_DIR)</directory></fonts></renderer></renderers></fop>" | xmllint --format - > $@
 
 ################################################################################
 
@@ -100,6 +92,13 @@ $(TARGET_BASE).txt: $(TARGET_BASE).html
 .PHONY: check-document
 check-document: $(DOCUMENT) $(DOCUMENT_DEPENDENCIES)
 	xmllint $(LIBXML_FLAGS) --postvalid --noout $(DOCUMENT)
+
+################################################################################
+# Fop files
+################################################################################
+
+$(FOP_CONFIG_FILE): 
+	echo "<fop version=\"1.0\"><renderers><renderer mime=\"application/pdf\"><fonts><directory recursive=\"true\">$(FONTS_DIR)</directory></fonts></renderer></renderers></fop>" | xmllint --format - > $@
 
 ################################################################################
 # Docbook
