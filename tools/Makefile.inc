@@ -15,6 +15,7 @@ DOCBOOKKIT_DIR ?= docbook-kit
 DOCBOOK_XSL_DIR ?= docbook/xsl
 DOCBOOK_XML_DIR ?= docbook/xml
 DOCBOOK_DIR ?= docbook
+ASPELL_WORDS ?= ./aspell-words
 
 ################################################################################
 # Sanity checks
@@ -94,6 +95,12 @@ $(TARGET_BASE).txt: $(TARGET_BASE).html
 .PHONY: check-document
 check-document: $(DOCUMENT) $(DOCUMENT_DEPENDENCIES)
 	xmllint $(LIBXML_FLAGS) --postvalid --noout $(DOCUMENT)
+
+.PHONY: check-spelling 
+check-spelling:
+	for i in $(filter %.xml,$(DOCUMENT_DEPENDENCIES)); do \
+		aspell --encoding=utf-8 --mode=sgml -c $$i -p $(ASPELL_WORDS); \
+	done
 
 ################################################################################
 # Fop files

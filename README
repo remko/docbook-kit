@@ -12,6 +12,7 @@ Requirements
 - Apache FOP (http://xmlgraphics.apache.org/fop/). For PDF output.
 - pdftk (http://www.accesspdf.com/pdftk/). For PDF attachments. Optional.
 - wget (http://www.gnu.org/software/wget/). To download required DocBook files. 
+- aspell (http://aspell.net/). For spellchecking. Optional.
 
 
 Usage
@@ -28,6 +29,8 @@ The makefile provides the following commands:
 - 'make pdf': Create a PDF version of the document
 - 'make txt': Create a text version of the document
 - 'make clean': Clean up all generated files
+- 'make check-document': Validates the document syntax
+- 'make check-spelling': Checks the spelling of the document
 
 If you want to use custom fonts in your style sheets, drop the .ttf or
 .pfm file in the fonts/ directory.
