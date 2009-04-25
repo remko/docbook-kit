@@ -98,7 +98,7 @@ check-document: $(DOCUMENT) $(DOCUMENT_DEPENDENCIES)
 
 .PHONY: check-spelling 
 check-spelling:
-	for i in $(filter %.xml,$(DOCUMENT_DEPENDENCIES)); do \
+	for i in $(DOCUMENT) $(filter %.xml,$(DOCUMENT_DEPENDENCIES)); do \
 		aspell --encoding=utf-8 --mode=sgml -c $$i -p $(ASPELL_WORDS); \
 	done
 
