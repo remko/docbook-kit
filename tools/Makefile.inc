@@ -55,7 +55,7 @@ endif
 
 .PHONY: clean
 clean:
-	-rm -f $(TARGET_BASE).pdf $(TARGET_BASE).fo $(TARGET_BASE).html $(TARGET_BASE).txt $(CLEANFILES)
+	-rm -f $(TARGET_BASE).pdf $(TARGET_BASE).fo $(TARGET_BASE).html $(TARGET_BASE).txt $(TARGET_BASE).flat.xml $(CLEANFILES)
 	
 .PHONY: html
 html: $(TARGET_BASE).html
