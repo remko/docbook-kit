@@ -7,6 +7,7 @@ License: GPLv2
 
 Requirements
 ------------
+- Python >= 2.4 (http://python.org)
 - xmllint (http://xmlsoft.org/xmllint.html). Part of LibXML2.
 - xsltproc (http://xmlsoft.org/XSLT/xsltproc2.html). Part of LibXML2.
 - Apache FOP (http://xmlgraphics.apache.org/fop/). For PDF output.
@@ -31,6 +32,9 @@ The makefile provides the following commands:
 - 'make clean': Clean up all generated files
 - 'make check-document': Validates the document syntax
 - 'make check-spelling': Checks the spelling of the document
+- 'make package': Creates a tarball of your document. The package contains
+		a flattened version of the DocBook sources, and normalized figure
+		names.
 
 If you want to use custom fonts in your style sheets, drop the .ttf or
 .pfm file in the fonts/ directory.

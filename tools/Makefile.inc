@@ -102,6 +102,16 @@ check-spelling:
 		aspell --encoding=utf-8 --mode=sgml -c $$i -p $(ASPELL_WORDS); \
 	done
 
+.PHONY: package
+package: $(TARGET_BASE).flat.xml
+	-rm $(TARGET_BASE)/*
+	-rmdir $(TARGET_BASE)
+	$(DOCBOOKKIT_DIR)/tools/docbook-package.py $(TARGET_BASE).flat.xml $(TARGET_BASE)
+	tar czf $(TARGET_BASE).tar.gz $(TARGET_BASE)
+	-rm $(TARGET_BASE)/*
+	-rmdir $(TARGET_BASE)
+
+
 ################################################################################
 # Fop files
 ################################################################################
