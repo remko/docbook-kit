@@ -8,6 +8,7 @@
   <xsl:import href="../../../docbook/xsl/fo/docbook.xsl"/>
   <xsl:include href="../common/params.xsl" />
   <xsl:include href="../common/inline.xsl" />
+  <xsl:include href="component.xsl" />
   <xsl:include href="inline.xsl" />
   <xsl:include href="titlepage.xsl"/>
 
