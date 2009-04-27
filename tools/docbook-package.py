@@ -1,4 +1,12 @@
 #!/usr/bin/env python
+# coding=utf-8
+
+# Takes a flat DocBook XML input file, and generates a tarbal for it.
+# All figures referenced from the XML file are added to the tarball, using
+# a normalized name (e.g. MyArticle-Figure-1.png)
+#
+# Author: Remko Tronçon
+
 
 import sys, re, os.path, xml.dom.minidom, shutil
 
