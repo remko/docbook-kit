@@ -104,8 +104,10 @@ check-spelling:
 
 .PHONY: package
 package: $(TARGET_BASE).flat.xml
-	-rm $(TARGET_BASE)/*
-	-rmdir $(TARGET_BASE)
+	if [ -d $(TARGET_BASE) ]; then \
+		rm -f $(TARGET_BASE)/*; \
+		rmdir $(TARGET_BASE); \
+	fi
 	$(DOCBOOKKIT_DIR)/tools/docbook-package.py $(TARGET_BASE).flat.xml $(TARGET_BASE)
 	tar czf $(TARGET_BASE).tar.gz $(TARGET_BASE)
 	-rm $(TARGET_BASE)/*
