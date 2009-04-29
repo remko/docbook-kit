@@ -126,7 +126,7 @@ $(FOP_CONFIG_FILE):
 ################################################################################
 
 DOCBOOK_VERSION ?= 4.5
-DOCBOOK_XSL_VERSION ?= 1.74.0
+DOCBOOK_XSL_VERSION ?= 1.74.3
 
 $(DOCBOOK_DIR): $(DOCBOOK_XML_DIR) $(DOCBOOK_XSL_DIR)
 
