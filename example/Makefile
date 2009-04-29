@@ -16,4 +16,4 @@ check: check-document check-spelling
 MyGeneratedFile.xml:
 	echo "<para>This is a generated file</para>" > $@
 
-CLEANFILES += MyGeneratedFile.xml
+CLEANFILES += MyGeneratedFile.xml fop.cfg
