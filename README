@@ -12,6 +12,7 @@ Requirements
 - xsltproc (http://xmlsoft.org/XSLT/xsltproc2.html). Part of LibXML2.
 - Apache FOP (http://xmlgraphics.apache.org/fop/). For PDF output.
 - pdftk (http://www.accesspdf.com/pdftk/). For PDF attachments. Optional.
+- links (http://links.sourceforge.net). For TXT output.
 - wget (http://www.gnu.org/software/wget/). To download required DocBook files. 
 - aspell (http://aspell.net/). For spellchecking. Optional.
 
