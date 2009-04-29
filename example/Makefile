@@ -1,5 +1,4 @@
 # The toplevel DocBook file of our project
-# The toplevel document file
 DOCUMENT = MyDocument.xml
 
 # Attacments (Optional). These will be attached to the generated PDF.

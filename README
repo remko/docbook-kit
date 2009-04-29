@@ -21,20 +21,22 @@ Usage
 To use this kit, put it in the directory of your DocBook project, and have
 a look at the example/ dir to see how to use it in your project.
 
-The Makefile include automatically downloads DocBook if necessary,
-and automatically builds your project (and its depended-on files).
+Tools
+-----
+* The Makefile include automatically downloads DocBook if necessary,
+  and automatically builds your project (and its depended-on files).
 
-The makefile provides the following commands:
-- 'make': Create HTML and PDF versions (if FOP is available) of the document
-- 'make html': Create a HTML version of the document
-- 'make pdf': Create a PDF version of the document
-- 'make txt': Create a text version of the document
-- 'make clean': Clean up all generated files
-- 'make check-document': Validates the document syntax
-- 'make check-spelling': Checks the spelling of the document
-- 'make package': Creates a tarball of your document. The package contains
-		a flattened version of the DocBook sources, and normalized figure
-		names.
+	The makefile provides the following commands:
+	- 'make': Create HTML and PDF versions (if FOP is available) of the document
+	- 'make html': Create a HTML version of the document
+	- 'make pdf': Create a PDF version of the document
+	- 'make txt': Create a text version of the document
+	- 'make clean': Clean up all generated files
+	- 'make check-document': Validates the document syntax
+	- 'make check-spelling': Checks the spelling of the document
+	- 'make package': Creates a tarball of your document. The package contains
+			a flattened version of the DocBook sources, and normalized figure
+			names.
 
 If you want to use custom fonts in your style sheets, drop the .ttf or
 .pfm file in the fonts/ directory.
