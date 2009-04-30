@@ -14,6 +14,7 @@
 DOCBOOKKIT_DIR ?= docbook-kit
 DOCBOOK_XSL_DIR ?= docbook/xsl
 DOCBOOK_XML_DIR ?= docbook/xml
+FOP_DIR ?= docbook/fop
 DOCBOOK_DIR ?= docbook
 ASPELL_WORDS ?= ./aspell-words
 
@@ -32,9 +33,9 @@ DOCBOOK_XSL_HTML = $(DOCBOOKKIT_DIR)/style/html/docbook.xsl
 DOCBOOK_XSL_FO = $(DOCBOOKKIT_DIR)/style/fo/docbook.xsl
 FONTS_DIR = $(DOCBOOKKIT_DIR)/fonts
 
+FOP = $(FOP_DIR)/fop
+
 PDFTK = $(shell which pdftk)
-FOP = $(shell which fop)
-FOP_DIR = $(dir $(FOP))
 
 LIBXML_FLAGS = --nonet --xinclude
 XSLTPROC_FLAGS = 
@@ -42,16 +43,14 @@ XSLTPROC_FLAGS =
 FOP_CONFIG_FILE = fop.cfg
 
 ################################################################################
+# Rules for creating various output formats
+################################################################################
 
 export XML_CATALOG_FILES=$(DOCBOOK_CATALOG)
 DOCUMENT_DEPENDENCIES = $(shell $(DOCBOOKKIT_DIR)/tools/docbook-deps.py $(DOCUMENT)) $(DOCBOOK_DIR)
 TARGET_BASE = $(basename $(DOCUMENT))
 
-ifneq ($(FOP),)
 all: check-document $(TARGET_BASE).html $(TARGET_BASE).pdf
-else
-all: check-document $(TARGET_BASE).html
-endif
 
 .PHONY: clean
 clean:
@@ -72,7 +71,7 @@ $(TARGET_BASE).flat.xml: $(DOCUMENT) $(DOCUMENT_DEPENDENCIES)
 $(TARGET_BASE).html: $(DOCUMENT) $(DOCUMENT_DEPENDENCIES) $(DOCBOOK_XSL_HTML)
 	xsltproc $(XSLTPROC_FLAGS) $(LIBXML_FLAGS) $(DOCBOOK_XSL_HTML_PARAMS) --output $@ $(DOCBOOK_XSL_HTML) $(DOCUMENT)
 
-$(TARGET_BASE).pdf: $(TARGET_BASE).fo $(FOP_CONFIG_FILE)
+$(TARGET_BASE).pdf: $(TARGET_BASE).fo $(FOP) $(FOP_CONFIG_FILE)
 	$(FOP) -c $(FOP_CONFIG_FILE) $< $@
 	@if [ "$(DOCUMENT_ATTACHMENTS)" ]; then \
 		if [ -x "$(PDFTK)" -a "$DOCUMENT_ATTACHMENTS" ]; then \
@@ -91,6 +90,10 @@ $(TARGET_BASE).fo: $(DOCUMENT) $(DOCUMENT_DEPENDENCIES) $(DOCBOOK_XSL_FO)
 
 $(TARGET_BASE).txt: $(TARGET_BASE).html
 	links --dump 1 $< > $@
+
+################################################################################
+# Rules for document checking and packaging
+################################################################################
 
 .PHONY: check-document
 check-document: $(DOCUMENT) $(DOCUMENT_DEPENDENCIES)
@@ -115,14 +118,38 @@ package: $(TARGET_BASE).flat.xml
 
 
 ################################################################################
-# Fop files
+# FOP files
+# * FOP (including hyphenation patterns) is auto-downloaded if it can't be 
+#   found in the PATH
+# * A fop.cfg file is created if there isn't one already. The default fop.cfg
+#   points FOP to the docbook-kit/fonts dir to find extra fonts.
 ################################################################################
+
+FOP_VERSION ?= 0.95
+OFFO_HYPHENATION_VERSION=stable_v1.2
+
+$(FOP):
+	export fop=`which fop`; \
+	if [ "$$fop" ]; then \
+		ln -s `dirname $$fop` $(FOP_DIR); \
+	else \
+		wget http://www.apache.org/dist/xmlgraphics/fop/binaries/fop-$(FOP_VERSION)-bin.tar.gz; \
+		tar xzf fop-$(FOP_VERSION)-bin.tar.gz; \
+		mv fop-$(FOP_VERSION) $(FOP_DIR); \
+		rm -f fop-$(FOP_VERSION)-bin.tar.gz; \
+		wget http://dfn.dl.sourceforge.net/sourceforge/offo/offo-hyphenation-fop-$(OFFO_HYPHENATION_VERSION).zip; \
+		unzip -q offo-hyphenation-fop-$(OFFO_HYPHENATION_VERSION).zip; \
+		mv offo-hyphenation-fop-stable/fop-hyph.jar $(FOP_DIR)/lib; \
+		rm -rf offo-hyphenation-fop-stable; \
+		rm -f offo-hyphenation-fop-$(OFFO_HYPHENATION_VERSION).zip; \
+	fi
 
 $(FOP_CONFIG_FILE): 
 	echo "<fop version=\"1.0\"><renderers><renderer mime=\"application/pdf\"><fonts><directory recursive=\"true\">$(FONTS_DIR)</directory></fonts></renderer></renderers></fop>" | xmllint --format - > $@
 
 ################################################################################
 # Docbook
+# * The DocBook XML schemas and XSL stylesheets are automatically downloaded.
 ################################################################################
 
 DOCBOOK_VERSION ?= 4.5

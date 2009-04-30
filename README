@@ -10,7 +10,6 @@ Requirements
 - Python >= 2.4 (http://python.org)
 - xmllint (http://xmlsoft.org/xmllint.html). Part of LibXML2.
 - xsltproc (http://xmlsoft.org/XSLT/xsltproc2.html). Part of LibXML2.
-- Apache FOP (http://xmlgraphics.apache.org/fop/). For PDF output.
 - pdftk (http://www.accesspdf.com/pdftk/). For PDF attachments. Optional.
 - links (http://links.sourceforge.net). For TXT output.
 - wget (http://www.gnu.org/software/wget/). To download required DocBook files. 
@@ -26,6 +25,9 @@ Tools
 -----
 * The Makefile include automatically downloads DocBook if necessary,
   and automatically builds your project (and its depended-on files).
+  If you want to avoid downloading all tools if you already have them in
+  another project that uses the docbook-kit, just create a 'docbook' softlink 
+  to the 'docbook' dir in your other project.
 
 	The makefile provides the following commands:
 	- 'make': Create HTML and PDF versions (if FOP is available) of the document
