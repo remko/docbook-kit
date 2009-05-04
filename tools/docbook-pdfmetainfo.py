@@ -6,7 +6,7 @@
 #
 # Author: Remko Tronçon
 
-import sys, xml.dom.minidom, os.path
+import sys, xml.dom.minidom, os.path, re
 
 def getText(nodelist):
   rc = ""
@@ -14,6 +14,14 @@ def getText(nodelist):
     if node.nodeType == node.TEXT_NODE:
       rc += node.data
   return rc
+
+def escape(text) :
+  def escape_entities(m):
+    out = []
+    for char in m.group():
+      out.append("&#%d;" % ord(char))
+    return "".join(out)
+  return re.sub(u"[&<>\"\u0080-\uffff]+", escape_entities, text).encode("ascii")
 
 assert(len(sys.argv) == 2)
 
@@ -24,7 +32,7 @@ file.close()
 titles = document.getElementsByTagName("title")
 if len(titles) > 0 :
   print "InfoKey: Title"
-  print "InfoValue: " + getText(titles[0].childNodes).encode("utf-8")
+  print "InfoValue: " + escape(getText(titles[0].childNodes).encode("utf-8"))
 authors = document.getElementsByTagName("author")
 if len(authors) > 0 :
   author = ""
@@ -37,4 +45,4 @@ if len(authors) > 0 :
   author = author.strip()
   if author != "" :
     print "InfoKey: Author"
-    print "InfoValue: " + author.encode("utf-8")
+    print "InfoValue: " + escape(author)

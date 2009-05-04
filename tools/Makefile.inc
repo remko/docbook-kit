@@ -81,6 +81,7 @@ $(TARGET_BASE).pdf: $(TARGET_BASE).fo $(FOP) $(FOP_CONFIG_FILE)
 			if [ "$(DOCUMENT_ATTACHMENTS)" ]; then \
 				echo "Adding attachments ..."; \
 				$(PDFTK) $(TARGET_BASE)_withinfo.pdf attach_files $(DOCUMENT_ATTACHMENTS) output $(TARGET_BASE).pdf compress; \
+				rm $(TARGET_BASE)_withinfo.pdf; \
 			else \
 				mv $(TARGET_BASE)_withinfo.pdf $(TARGET_BASE).pdf; \
 			fi \
