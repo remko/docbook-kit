@@ -73,17 +73,20 @@ $(TARGET_BASE).html: $(DOCUMENT) $(DOCUMENT_DEPENDENCIES) $(DOCBOOK_XSL_HTML)
 
 $(TARGET_BASE).pdf: $(TARGET_BASE).fo $(FOP) $(FOP_CONFIG_FILE)
 	$(FOP) -c $(FOP_CONFIG_FILE) $< $@
-	@if [ "$(DOCUMENT_ATTACHMENTS)" ]; then \
-		if [ -x "$(PDFTK)" -a "$DOCUMENT_ATTACHMENTS" ]; then \
+	@if [ -x "$(PDFTK)" ]; then \
+			echo "Adding metainfo ..."; \
 			mv $(TARGET_BASE).pdf $(TARGET_BASE)_bare.pdf; \
 			($(DOCBOOKKIT_DIR)/tools/docbook-pdfmetainfo.py $(DOCUMENT); $(PDFTK) $(TARGET_BASE)_bare.pdf dump_data) | $(PDFTK) $(TARGET_BASE)_bare.pdf update_info - output $(TARGET_BASE)_withinfo.pdf; \
 			rm $(TARGET_BASE)_bare.pdf; \
-			$(PDFTK) $(TARGET_BASE)_withinfo.pdf attach_files $(DOCUMENT_ATTACHMENTS) output $(TARGET_BASE).pdf compress; \
-			rm $(TARGET_BASE)_withinfo.pdf; \
-		else \
+			if [ "$(DOCUMENT_ATTACHMENTS)" ]; then \
+				echo "Adding attachments ..."; \
+				$(PDFTK) $(TARGET_BASE)_withinfo.pdf attach_files $(DOCUMENT_ATTACHMENTS) output $(TARGET_BASE).pdf compress; \
+			else \
+				mv $(TARGET_BASE)_withinfo.pdf $(TARGET_BASE).pdf; \
+			fi \
+		elif [ "$(DOCUMENT_ATTACHMENTS)" ]; then \
 			echo "WARNING: PDFTK not found, not adding sources as attachments"; \
-		fi \
-	fi
+		fi
 
 $(TARGET_BASE).fo: $(DOCUMENT) $(DOCUMENT_DEPENDENCIES) $(DOCBOOK_XSL_FO)
 	xsltproc $(XSLTPROC_FLAGS) $(LIBXML_FLAGS) -o $@ $(DOCBOOK_XSL_FO_PARAMS) $(DOCBOOK_XSL_FO) $(DOCUMENT)
