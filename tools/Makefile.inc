@@ -109,6 +109,10 @@ check-spelling:
 		aspell --encoding=utf-8 --mode=sgml -c $$i -p $(ASPELL_WORDS); \
 	done
 
+.PHONY: check-quotes
+check-quotes:
+	$(DOCBOOKKIT_DIR)/tools/docbook-checkquotes.py $(DOCUMENT) $(filter %.xml,$(DOCUMENT_DEPENDENCIES))
+
 .PHONY: package
 package: $(TARGET_BASE).flat.xml
 	if [ -d $(TARGET_BASE) ]; then \
