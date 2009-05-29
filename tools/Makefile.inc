@@ -104,14 +104,18 @@ check-document: $(DOCUMENT) $(DOCUMENT_DEPENDENCIES)
 	xmllint $(LIBXML_FLAGS) --postvalid --noout $(DOCUMENT)
 
 .PHONY: check-spelling 
-check-spelling:
+check-spelling: $(DOCUMENT) $(DOCUMENT_DEPENDENCIES)
 	for i in $(DOCUMENT) $(filter %.xml,$(DOCUMENT_DEPENDENCIES)); do \
 		aspell --encoding=utf-8 --mode=sgml -c $$i -p $(ASPELL_WORDS); \
 	done
 
 .PHONY: check-quotes
-check-quotes:
+check-quotes: $(DOCUMENT) $(DOCUMENT_DEPENDENCIES)
 	$(DOCBOOKKIT_DIR)/tools/docbook-checkquotes.py $(DOCUMENT) $(filter %.xml,$(DOCUMENT_DEPENDENCIES))
+
+.PHONY: check-braces
+check-braces: $(DOCUMENT) $(DOCUMENT_DEPENDENCIES)
+	$(DOCBOOKKIT_DIR)/tools/docbook-checkbraces.py $(DOCUMENT) $(filter %.xml,$(DOCUMENT_DEPENDENCIES))
 
 .PHONY: package
 package: $(TARGET_BASE).flat.xml
