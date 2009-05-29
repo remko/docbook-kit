@@ -117,6 +117,10 @@ check-quotes: $(DOCUMENT) $(DOCUMENT_DEPENDENCIES)
 check-braces: $(DOCUMENT) $(DOCUMENT_DEPENDENCIES)
 	$(DOCBOOKKIT_DIR)/tools/docbook-checkbraces.py $(DOCUMENT) $(filter %.xml,$(DOCUMENT_DEPENDENCIES))
 
+.PHONY: check-ulinks
+check-ulinks: $(DOCUMENT) $(DOCUMENT_DEPENDENCIES)
+	$(DOCBOOKKIT_DIR)/tools/docbook-checkulinks.py $(DOCUMENT) $(filter %.xml,$(DOCUMENT_DEPENDENCIES))
+
 .PHONY: package
 package: $(TARGET_BASE).flat.xml
 	if [ -d $(TARGET_BASE) ]; then \

@@ -39,6 +39,8 @@ Tools
 	- 'make check-spelling': Checks the spelling of the document
 	- 'make check-quotes': Checks for correct usage of curly quotes
 	- 'make check-braces': Checks for correctly balanced braces
+	- 'make check-ulinks': Checks whether the URIs pointed to by <ulink/>
+			elements are valid.
 	- 'make package': Creates a tarball of your document. The package contains
 			a flattened version of the DocBook sources, and normalized figure
 			names.
