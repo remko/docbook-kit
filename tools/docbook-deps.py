@@ -8,7 +8,14 @@
 
 import urllib, sys, xml.dom.minidom, xml.sax, os.path
 
-assert(len(sys.argv) == 2)
+assert(len(sys.argv) >= 2)
+
+imagesOnly = False
+if len(sys.argv) > 2 :
+  if sys.argv[2] == "--images" :
+    imagesOnly = True
+  else :
+    assert(False)
 
 files = [sys.argv[1]]
 dependencies = set()
@@ -29,7 +36,8 @@ while len(files) > 0 :
   includes = document.getElementsByTagNameNS("http://www.w3.org/2001/XInclude", "include")
   for include in includes :
     include_file = include.getAttribute("href")
-    dependencies.add(include_file)
+    if not imagesOnly :
+      dependencies.add(include_file)
     if include.getAttribute("parse") != "text" :
       files.append(include_file)
 

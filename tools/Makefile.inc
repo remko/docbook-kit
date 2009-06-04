@@ -29,8 +29,17 @@ endif
 ################################################################################
 
 DOCBOOK_CATALOG = $(DOCBOOK_XML_DIR)/catalog.xml
-DOCBOOK_XSL_HTML = $(DOCBOOKKIT_DIR)/style/html/docbook.xsl
-DOCBOOK_XSL_FO = $(DOCBOOKKIT_DIR)/style/fo/docbook.xsl
+DOCBOOK_XSL_HTML ?= $(DOCBOOKKIT_DIR)/style/html/docbook.xsl
+DOCBOOK_XSL_FO ?= $(DOCBOOKKIT_DIR)/style/fo/docbook.xsl
+DOCBOOK_XSL_EPUB ?= $(DOCBOOK_XSL_DIR)/epub/docbook.xsl
+DOCBOOK_XSL_EPUB_PARAMS = \
+	--stringparam chunk.quietly 1 \
+	--stringparam callout.graphics.path images/callouts/ \
+	--stringparam callout.graphics.number.limit 15 \
+	--stringparam callout.graphics.extension .png \
+	--stringparam base.dir OEBPS/ \
+	--stringparam epub.oebps.dir OEBPS/ \
+	--stringparam epub.metainf.dir META-INF/
 FONTS_DIR = $(DOCBOOKKIT_DIR)/fonts
 
 FOP = $(FOP_DIR)/fop
@@ -54,7 +63,7 @@ all: check-document $(TARGET_BASE).html $(TARGET_BASE).pdf
 
 .PHONY: clean
 clean:
-	-rm -f $(TARGET_BASE).pdf $(TARGET_BASE).fo $(TARGET_BASE).html $(TARGET_BASE).txt $(TARGET_BASE).flat.xml $(TARGET_BASE).tar.gz $(CLEANFILES)
+	-rm -f $(TARGET_BASE).pdf $(TARGET_BASE).fo $(TARGET_BASE).html $(TARGET_BASE).txt $(TARGET_BASE).epub $(TARGET_BASE).flat.xml $(TARGET_BASE).tar.gz $(CLEANFILES)
 	
 .PHONY: html
 html: $(TARGET_BASE).html
@@ -65,11 +74,26 @@ txt: $(TARGET_BASE).txt
 .PHONY: pdf
 pdf: $(TARGET_BASE).pdf
 
+.PHONY: epub
+epub: $(TARGET_BASE).epub
+
 $(TARGET_BASE).flat.xml: $(DOCUMENT) $(DOCUMENT_DEPENDENCIES)
 	xmllint $(LIBXML_FLAGS) --postvalid $(DOCUMENT) > $@
 
 $(TARGET_BASE).html: $(DOCUMENT) $(DOCUMENT_DEPENDENCIES) $(DOCBOOK_XSL_HTML)
 	xsltproc $(XSLTPROC_FLAGS) $(LIBXML_FLAGS) $(DOCBOOK_XSL_HTML_PARAMS) --output $@ $(DOCBOOK_XSL_HTML) $(DOCUMENT)
+
+$(TARGET_BASE).epub: $(DOCUMENT) $(DOCUMENT_DEPENDENCIES) $(DOCBOOK_XSL_EPUB)
+	xsltproc $(XSLTPROC_FLAGS) $(LIBXML_FLAGS) $(DOCBOOK_XSL_EPUB_PARAMS) $(DOCBOOK_XSL_EPUB) $(DOCUMENT)
+	echo "application/epub+zip" > mime_type
+	mkdir -p OEBPS/images/callouts
+	cp -r $(DOCBOOK_XSL_DIR)/images/callouts/*.png OEBPS/images/callouts
+	for image in `$(DOCBOOKKIT_DIR)/tools/docbook-deps.py $(DOCUMENT) --images`; do \
+		mkdir -p OEBPS/`dirname $$image`; \
+		cp $$image OEBPS/`dirname $$image`; \
+	done
+	zip -q -X -r $@ mime_type OEBPS META-INF
+	-rm -rf mime_type OEBPS META-INF
 
 $(TARGET_BASE).pdf: $(TARGET_BASE).fo $(FOP) $(FOP_CONFIG_FILE)
 	$(FOP) -c $(FOP_CONFIG_FILE) $< $@
@@ -136,9 +160,9 @@ package: $(TARGET_BASE).flat.xml
 ################################################################################
 # FOP files
 # * FOP (including hyphenation patterns) is auto-downloaded if it can't be 
-#   found in the PATH
+#		found in the PATH
 # * A fop.cfg file is created if there isn't one already. The default fop.cfg
-#   points FOP to the docbook-kit/fonts dir to find extra fonts.
+#		points FOP to the docbook-kit/fonts dir to find extra fonts.
 ################################################################################
 
 FOP_VERSION ?= 0.95
@@ -189,5 +213,5 @@ $(DOCBOOK_XSL_DIR):
 	wget http://dfn.dl.sourceforge.net/sourceforge/docbook/docbook-xsl-$(DOCBOOK_XSL_VERSION).zip
 	unzip -q docbook-xsl-$(DOCBOOK_XSL_VERSION).zip
 	mv docbook-xsl-$(DOCBOOK_XSL_VERSION) $(DOCBOOK_XSL_DIR)
-	-rm -rf $(DOCBOOK_XSL_DIR)/epub $(DOCBOOK_XSL_DIR)/slides $(DOCBOOK_XSL_DIR)/website $(DOCBOOK_XSL_DIR)/xhtml $(DOCBOOK_XSL_DIR)/xhtml-1_1 $(DOCBOOK_XSL_DIR)/roundtrip $(DOCBOOK_XSL_DIR)/docsrc $(DOCBOOK_XSL_DIR)/eclipse $(DOCBOOK_XSL_DIR)/htmlhelp $(DOCBOOK_XSL_DIR)/javahelp $(DOCBOOK_XSL_DIR)/manpages $(DOCBOOK_XSL_DIR)/profiling $(DOCBOOK_XSL_DIR)/tools $(DOCBOOK_XSL_DIR)/tests
+	-rm -rf $(DOCBOOK_XSL_DIR)/slides $(DOCBOOK_XSL_DIR)/website $(DOCBOOK_XSL_DIR)/xhtml $(DOCBOOK_XSL_DIR)/roundtrip $(DOCBOOK_XSL_DIR)/docsrc $(DOCBOOK_XSL_DIR)/eclipse $(DOCBOOK_XSL_DIR)/htmlhelp $(DOCBOOK_XSL_DIR)/javahelp $(DOCBOOK_XSL_DIR)/manpages $(DOCBOOK_XSL_DIR)/profiling $(DOCBOOK_XSL_DIR)/tools $(DOCBOOK_XSL_DIR)/tests
 	rm docbook-xsl-$(DOCBOOK_XSL_VERSION).zip
