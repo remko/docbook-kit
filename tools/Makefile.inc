@@ -220,5 +220,5 @@ $(DOCBOOK_XSL_DIR):
 	wget http://dfn.dl.sourceforge.net/sourceforge/docbook/docbook-xsl-$(DOCBOOK_XSL_VERSION).zip
 	unzip -q docbook-xsl-$(DOCBOOK_XSL_VERSION).zip
 	mv docbook-xsl-$(DOCBOOK_XSL_VERSION) $(DOCBOOK_XSL_DIR)
-	-rm -rf $(DOCBOOK_XSL_DIR)/slides $(DOCBOOK_XSL_DIR)/website $(DOCBOOK_XSL_DIR)/xhtml $(DOCBOOK_XSL_DIR)/roundtrip $(DOCBOOK_XSL_DIR)/docsrc $(DOCBOOK_XSL_DIR)/eclipse $(DOCBOOK_XSL_DIR)/htmlhelp $(DOCBOOK_XSL_DIR)/javahelp $(DOCBOOK_XSL_DIR)/manpages $(DOCBOOK_XSL_DIR)/profiling $(DOCBOOK_XSL_DIR)/tools $(DOCBOOK_XSL_DIR)/tests
+	-rm -rf $(DOCBOOK_XSL_DIR)/slides $(DOCBOOK_XSL_DIR)/website $(DOCBOOK_XSL_DIR)/roundtrip $(DOCBOOK_XSL_DIR)/docsrc $(DOCBOOK_XSL_DIR)/eclipse $(DOCBOOK_XSL_DIR)/htmlhelp $(DOCBOOK_XSL_DIR)/javahelp $(DOCBOOK_XSL_DIR)/manpages $(DOCBOOK_XSL_DIR)/profiling $(DOCBOOK_XSL_DIR)/tools $(DOCBOOK_XSL_DIR)/tests
 	rm docbook-xsl-$(DOCBOOK_XSL_VERSION).zip
