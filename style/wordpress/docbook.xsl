@@ -19,7 +19,6 @@
     <xsl:variable name="doc" select="self::*"/>
     <xsl:processing-instruction name="php">
       require('../wordpress/wp-blog-header.php'); 
-      $wp_query->is_home = false;
       class MyPost { var $post_title = "<xsl:apply-templates select="$doc" mode="object.title.markup.textonly"/>"; }
       $wp_query->is_home = false;
       $wp_query->is_single = true;
