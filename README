@@ -35,6 +35,7 @@ Tools
   - 'make html': Create a HTML version of the document
   - 'make pdf': Create a PDF version of the document
   - 'make epub': Create an EPUB version of the document
+	- 'make wordpress': Create a PHP file that integrates with a WordPress blog
   - 'make txt': Create a text version of the document
   - 'make clean': Clean up all generated files
   - 'make check-document': Validates the document syntax
