@@ -17,6 +17,9 @@ DOCBOOK_XML_DIR ?= docbook/xml
 FOP_DIR ?= docbook/fop
 DOCBOOK_DIR ?= docbook
 ASPELL_WORDS ?= ./aspell-words
+WORDPRESS_PDF_URL ?= $(basename $(DOCUMENT)).pdf
+WORDPRESS_PDF_ICON ?= /icons/pdf.png
+WORDPRESS_DIR ?= ../../wordpress
 
 ################################################################################
 # Sanity checks
@@ -41,6 +44,10 @@ DOCBOOK_XSL_EPUB_PARAMS = \
 	--stringparam base.dir OEBPS/ \
 	--stringparam epub.oebps.dir OEBPS/ \
 	--stringparam epub.metainf.dir META-INF/
+DOCBOOK_XSL_WORDPRESS_PARAMS = \
+	--stringparam pdf.url "$(WORDPRESS_PDF_URL)" \
+	--stringparam pdf.icon "$(WORDPRESS_PDF_ICON)" \
+	--stringparam wordpress.dir "$(WORDPRESS_DIR)"
 FONTS_DIR = $(DOCBOOKKIT_DIR)/fonts
 
 FOP = $(FOP_DIR)/fop
@@ -88,7 +95,7 @@ $(TARGET_BASE).html: $(DOCUMENT) $(DOCUMENT_DEPENDENCIES) $(DOCBOOK_XSL_HTML)
 	xsltproc $(XSLTPROC_FLAGS) $(LIBXML_FLAGS) $(DOCBOOK_XSL_HTML_PARAMS) --output $@ $(DOCBOOK_XSL_HTML) $(DOCUMENT)
 
 $(TARGET_BASE).wp.php: $(DOCUMENT) $(DOCUMENT_DEPENDENCIES) $(DOCBOOK_XSL_HTML)
-	xsltproc $(XSLTPROC_FLAGS) $(LIBXML_FLAGS) $(DOCBOOK_XSL_HTML_PARAMS) $(DOCBOOK_XSL_WORDPRESS) $(DOCUMENT) | sed -e "s/^<!DOCTYPE .*//" > $@
+	xsltproc $(XSLTPROC_FLAGS) $(LIBXML_FLAGS) $(DOCBOOK_XSL_WORDPRESS_PARAMS) $(DOCBOOK_XSL_WORDPRESS) $(DOCUMENT) | sed -e "s/^<!DOCTYPE .*//" > $@
 
 $(TARGET_BASE).epub: $(DOCUMENT) $(DOCUMENT_DEPENDENCIES) $(DOCBOOK_XSL_EPUB)
 	xsltproc $(XSLTPROC_FLAGS) $(LIBXML_FLAGS) $(DOCBOOK_XSL_EPUB_PARAMS) $(DOCBOOK_XSL_EPUB) $(DOCUMENT)
