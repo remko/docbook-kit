@@ -13,12 +13,56 @@
   <section>
     <title>My first section</title>
     
-    <para>This is a simple paragraph</para>
+    <para>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris suscipit
+      risus at tortor laoreet in ullamcorper nisi blandit. Nulla vitae enim id
+      erat cursus hendrerit. Praesent at erat nec est luctus pharetra quis
+      vitae odio. Nulla ultrices laoreet arcu ac mollis. Vivamus commodo est
+      nec felis imperdiet id faucibus felis pharetra. Nulla nec quam eu nulla
+      aliquet faucibus. Nunc vitae mi id nibh interdum iaculis et a dui. Sed
+      condimentum, nulla imperdiet volutpat tincidunt, magna quam ullamcorper
+      sapien, eget ullamcorper est enim ut est. Maecenas nibh orci, aliquam vel
+      porttitor sed, adipiscing nec tortor. Sed pellentesque scelerisque quam
+      ut blandit. Aenean bibendum elementum arcu, quis auctor neque dictum vel.
+      Sed placerat dui commodo libero aliquam pellentesque luctus ac justo.
+      Nunc porttitor vehicula dui, ac tristique justo pharetra sed. Praesent
+      molestie nulla in turpis sodales aliquet. Mauris a leo vel nibh varius
+      facilisis nec varius quam. Aliquam lacus arcu, adipiscing tempor
+      venenatis porttitor, pulvinar sed velit. Sed ligula dolor, mattis non
+      hendrerit quis, elementum eu turpis. Curabitur eu elit faucibus orci
+      vehicula malesuada.
+    </para>
+
+    <para>
+      Curabitur ultricies tempus massa at ornare. Donec sed porta velit. Sed
+      fringilla dui sem. Maecenas tempus malesuada quam. Aliquam erat volutpat.
+      Nulla cursus nibh vel urna fringilla nec ullamcorper orci cursus. Cras
+      sed magna neque. Nam sagittis, justo ac sagittis porttitor, ipsum nisi
+      accumsan tortor, nec blandit ante nisi at enim. Phasellus et libero et
+      eros molestie pretium vitae nec est. Sed condimentum augue ornare nisi
+      ullamcorper at cursus nisi ornare. In at ligula turpis. Sed pellentesque
+      orci at nunc tincidunt vel pretium elit posuere. Fusce ac lectus et felis
+      mattis ornare ut sit amet arcu. Aliquam tempus, lacus ut commodo
+      hendrerit, arcu massa convallis justo, vitae pulvinar nunc ligula vitae
+      lorem. Proin nec sagittis dolor. Pellentesque ut ullamcorper velit.
+      Pellentesque habitant morbi tristique senectus et netus et malesuada
+      fames ac turpis egestas. 
+    </para>
   </section>
 
   <section>
     <title>My second paragraph</title>
 
     <include xmlns="http://www.w3.org/2001/XInclude" href="MyGeneratedFile.xml"/>
+
+    <itemizedlist>
+      <listitem><para>In cursus quam nec felis interdum tristique.</para></listitem>
+      <listitem><para>Mauris quis augue non lectus ullamcorper egestas.</para></listitem>
+      <listitem><para>Vivamus pulvinar urna orci, quis volutpat ante.</para></listitem>
+      <listitem><para>Sed id massa a diam tempor laoreet et vitae nunc.</para></listitem>
+      <listitem><para>Phasellus quis lorem et quam faucibus pharetra nec nec eros.</para></listitem>
+      <listitem><para>Morbi posuere accumsan velit, eu dignissim sapien lacinia nec.</para></listitem>
+      <listitem><para>Proin ultrices tellus in velit fringilla eleifend.</para></listitem>
+    </itemizedlist>
   </section>
 </article>
