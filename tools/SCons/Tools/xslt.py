@@ -13,7 +13,7 @@ def generate(env) :
 
     cmd = ["$XSLT", "--nonet", "--xinclude"]
     for (param, value) in env["XSLTPARAMS"] :
-      cmd += ["--stringparam ", param, "\"" + value + "\""]
+      cmd += ["--stringparam", param, value]
     cmd += ["-o", "$TARGET", "$XSLTSTYLESHEET", "$SOURCE"]
     # FIXME: It's probably not clean to do an ENV assignment globally
     env["ENV"]["XML_CATALOG_FILES"] = " ".join(env.get("XMLCATALOGS", ""))

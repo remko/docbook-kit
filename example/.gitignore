@@ -1,2 +1,7 @@
 .sconsign.dblite
 *.fo
+*.html
+*.pdf
+*.wp.php
+fop.cfg
+MyGeneratedFile.xml
