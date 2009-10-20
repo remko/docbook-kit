@@ -3,6 +3,7 @@ import xml.dom.minidom, re, os.path
 
 ################################################################################
 # DocBook pseudobuilder
+# TODO: Only generate the output formats that are known
 ################################################################################
 
 def generate(env) :

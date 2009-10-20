@@ -1,0 +1,8 @@
+env = Environment()
+
+env.Tool("docbook-kit", toolpath = ["docbook-kit/tools/SCons"], docbookkit_dir = "docbook-kit", docbook_dir = "docbook")
+
+env.DocBook("MyDocument.xml")
+
+env.Command("MyGeneratedFile.xml", [],
+	"echo '<para>This is a generated file</para>' > $TARGET")
