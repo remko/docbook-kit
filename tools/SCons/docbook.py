@@ -40,7 +40,7 @@ def generate(env) :
     wp = db_env.XSLT(os.path.splitext(source)[0] + ".wp.php", source, 
         XSLTSTYLESHEET = db_env["DOCBOOK_XSL_WP"],
         XSLTPARAMS = wp_params + env.get("XSLTPARAMS", []))
-    db_env.AddPostAction(wp, remove_doctype)
+    db_env.AddPostAction(wp, SCons.Action.Action(remove_doctype, cmdstr = "$FIXCOMSTR"))
 
   env.AddMethod(buildDocBook, "DocBook")
       
