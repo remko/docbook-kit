@@ -1,4 +1,4 @@
-# [DocBook kit] (http://el-tramo.be/software/docbook-kit)
+# [DocBook kit] (https://el-tramo.be/docbook-kit)
 
 ## About
 
